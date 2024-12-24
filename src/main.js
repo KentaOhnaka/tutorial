@@ -1,4 +1,5 @@
 import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
+import 'dotenv/config';
 
 const token = new SkyWayAuthToken({
     jti: uuidV4(),
@@ -33,7 +34,7 @@ const token = new SkyWayAuthToken({
             }, ],
         },
     },
-}).encode(process.env.SKYWAY_SECRE);
+}).encode(process.env.SKYWAY_SECRET);
 (async() => {
     const localVideo = document.getElementById("local-video");
     const buttonArea = document.getElementById("button-area");
@@ -137,8 +138,8 @@ const token = new SkyWayAuthToken({
         };
 
         room.onStreamUnpublished.add((e) => {
-            document.getElementById(`subscribe-button-${e.publication.id}`)?.remove();
-            document.getElementById(`media-${e.publication.id}`)?.remove();
+            document.getElementById(`subscribe-button-${e.publication.id}`) ? .remove();
+            document.getElementById(`media-${e.publication.id}`) ? .remove();
         });
     };
 })();
