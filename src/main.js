@@ -138,8 +138,8 @@ const token = new SkyWayAuthToken({
         };
 
         room.onStreamUnpublished.add((e) => {
-            document.getElementById(`subscribe-button-${e.publication.id}`) ? .remove();
-            document.getElementById(`media-${e.publication.id}`) ? .remove();
+            document.getElementById(`subscribe-button-${e.publication.id}`)?.remove();
+            document.getElementById(`media-${e.publication.id}`)?.remove();
         });
     };
 })();
