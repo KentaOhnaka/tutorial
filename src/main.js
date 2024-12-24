@@ -6,44 +6,35 @@ const token = new SkyWayAuthToken({
     exp: nowInSec() + 60 * 60 * 24,
     scope: {
         app: {
-            id: "ab3c6b60-825c-41d0-b708-9916808f088a",
+            id: process.env.SKYWAY_API_KEY,
             turn: true,
             actions: ["read"],
-            channels: [
-                {
+            channels: [{
+                id: "*",
+                name: "*",
+                actions: ["write"],
+                members: [{
                     id: "*",
                     name: "*",
                     actions: ["write"],
-                    members: [
-                        {
-                            id: "*",
-                            name: "*",
-                            actions: ["write"],
-                            publication: {
-                                actions: ["write"],
-                            },
-                            subscription: {
-                                actions: ["write"],
-                            },
-                        },
-                    ],
-                    sfuBots: [
-                        {
-                            actions: ["write"],
-                            forwardings: [
-                                {
-                                    actions: ["write"],
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
+                    publication: {
+                        actions: ["write"],
+                    },
+                    subscription: {
+                        actions: ["write"],
+                    },
+                }, ],
+                sfuBots: [{
+                    actions: ["write"],
+                    forwardings: [{
+                        actions: ["write"],
+                    }, ],
+                }, ],
+            }, ],
         },
     },
-}).encode("Pv9s4h9p58MoKYrDR+XpBhX7AIXkfv+JwZCL5Q2+2is=");
-
-(async () => {
+}).encode(process.env.SKYWAY_SECRE);
+(async() => {
     const localVideo = document.getElementById("local-video");
     const buttonArea = document.getElementById("button-area");
     const remoteMediaArea = document.getElementById("remote-media-area");
@@ -56,7 +47,7 @@ const token = new SkyWayAuthToken({
     let selectedVideoId = null;
 
     // 利用可能なデバイスを取得
-    const getDevices = async () => {
+    const getDevices = async() => {
         const devices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = devices.filter((device) => device.kind === "videoinput");
         const audioDevices = devices.filter((device) => device.kind === "audioinput");
@@ -83,7 +74,7 @@ const token = new SkyWayAuthToken({
     video.attach(localVideo);
     await localVideo.play();
 
-    joinButton.onclick = async () => {
+    joinButton.onclick = async() => {
         if (roomNameInput.value === "") return;
 
         const context = await SkyWayContext.Create(token);
@@ -106,7 +97,7 @@ const token = new SkyWayAuthToken({
             subscribeButton.textContent = `${publication.publisher.id}: ${publication.contentType}`;
             buttonArea.appendChild(subscribeButton);
 
-            subscribeButton.onclick = async () => {
+            subscribeButton.onclick = async() => {
                 const { stream } = await me.subscribe(publication.id);
 
                 let newMedia;
@@ -136,7 +127,7 @@ const token = new SkyWayAuthToken({
         room.publications.forEach(subscribeAndAttach);
         room.onStreamPublished.add((e) => subscribeAndAttach(e.publication));
 
-        leaveButton.onclick = async () => {
+        leaveButton.onclick = async() => {
             await me.leave();
             await room.dispose();
 
@@ -146,8 +137,8 @@ const token = new SkyWayAuthToken({
         };
 
         room.onStreamUnpublished.add((e) => {
-            document.getElementById(`subscribe-button-${e.publication.id}`)?.remove();
-            document.getElementById(`media-${e.publication.id}`)?.remove();
+            document.getElementById(`subscribe-button-${e.publication.id}`) ? .remove();
+            document.getElementById(`media-${e.publication.id}`) ? .remove();
         });
     };
 })();

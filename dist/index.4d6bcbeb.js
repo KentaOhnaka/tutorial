@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"1Fqy1":[function(require,module,exports,__globalThis) {
+})({"3Zo9f":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -652,7 +652,7 @@ const token = new (0, _room.SkyWayAuthToken)({
             ]
         }
     }
-}).encode("Pv9s4h9p58MoKYrDR+XpBhX7AIXkfv+JwZCL5Q2+2is=");
+}).encode(undefined);
 (async ()=>{
     const localVideo = document.getElementById("local-video");
     const buttonArea = document.getElementById("button-area");
@@ -53891,6 +53891,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["1Fqy1","gLLPy"], "gLLPy", "parcelRequire94c2")
+},{}]},["3Zo9f","gLLPy"], "gLLPy", "parcelRequire94c2")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map
